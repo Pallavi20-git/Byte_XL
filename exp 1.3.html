@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Use Inter font from Google Fonts for a clean, professional look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Light mode variables */
+            --bg-color: #f3f4f6;
+            --surface-color-light: #ffffff;
+            --surface-color-dark: #f8f8f8;
+            --header-footer-bg: #63d471;
+            --sidebar-bg: #e6e6e6;
+            --text-color: #1f2937;
+            --header-footer-text: #ffffff;
+            --link-color: #4b5563;
+            --link-hover-color: #111827;
+            --active-link-color: #212529;
+            --border-color: #e5e7eb;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        /* Styles for the dark mode, which is not the default in this version */
+        body.dark-mode-override {
+            --bg-color: #212529;
+            --surface-color-light: #2c3034;
+            --surface-color-dark: #212529;
+            --header-footer-bg: #2c3034;
+            --sidebar-bg: #2c3034;
+            --text-color: #f8f9fa;
+            --header-footer-text: #f8f9fa;
+            --link-color: #adb5bd;
+            --link-hover-color: #ffffff;
+            --active-link-color: #ffffff;
+            --border-color: #495057;
+        }
+
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            grid-template-rows: auto 1fr auto;
+            grid-template-areas:
+                "sidebar header"
+                "sidebar main"
+                "sidebar footer";
+            min-height: 100vh;
+            border: 1px solid var(--border-color);
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto 1fr auto;
+                grid-template-areas:
+                    "header"
+                    "sidebar"
+                    "main"
+                    "footer";
+            }
+        }
+
+        .header {
+            grid-area: header;
+            background-color: var(--header-footer-bg);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--header-footer-text);
+        }
+
+        .header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .theme-switch {
+            display: flex;
+            align-items: center;
+            color: var(--header-footer-text);
+        }
+        
+        .theme-switch input {
+            margin-right: 0.5rem;
+        }
+
+        .sidebar {
+            grid-area: sidebar;
+            background-color: var(--sidebar-bg);
+            padding: 2rem 1.5rem;
+            border-right: 1px solid var(--border-color);
+        }
+        
+        .sidebar-nav {
+            list-style: disc;
+            list-style-position: inside;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav li a {
+            display: block;
+            padding: 0.5rem;
+            margin-bottom: 0.25rem;
+            text-decoration: underline;
+            color: blue; /* Changed to blue */
+            font-weight: 500;
+        }
+        
+        .sidebar-nav li a.active {
+            font-weight: bold;
+        }
+
+        .main-content {
+            grid-area: main;
+            background-color: var(--surface-color-dark);
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        
+        .main-content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer {
+            grid-area: footer;
+            background-color: var(--header-footer-bg);
+            padding: 1rem 2rem;
+            text-align: center;
+            font-size: 0.875rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--header-footer-text);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <!-- Header Section -->
+        <header class="header">
+            <h1>Admin Dashboard</h1>
+            <div class="theme-switch">
+                <input type="checkbox" id="theme-checkbox">
+                <label for="theme-checkbox">Dark Mode</label>
+            </div>
+        </header>
+
+        <!-- Sidebar Section -->
+        <nav class="sidebar">
+            <ul class="sidebar-nav">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Users</a></li>
+                <li><a href="#">Settings</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <h2>Welcome, Admin!</h2>
+            <p>This is the main content area. Add charts, tables, or reports here.</p>
+        </main>
+
+        <!-- Footer Section -->
+        <footer class="footer">
+            <p>&copy; 2025 Admin Panel</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeCheckbox = document.getElementById('theme-checkbox');
+            const body = document.body;
+            
+            // This version of the code starts in light mode by default
+            // The dark mode styles are provided in the CSS but are not applied
+            // unless the checkbox is checked.
+
+            themeCheckbox.addEventListener('change', () => {
+                if (themeCheckbox.checked) {
+                    body.classList.add('dark-mode-override');
+                } else {
+                    body.classList.remove('dark-mode-override');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
