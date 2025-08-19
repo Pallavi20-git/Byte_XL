@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Drawing Tool</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #drawingCanvas {
+            border: 2px solid #333;
+            background-color: #fff;
+            cursor: crosshair;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>SVG Drawing Tool</h1>
+        <svg id="drawingCanvas" width="800" height="600"></svg>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('drawingCanvas');
+            let isDrawing = false;
+            let path;
+
+            canvas.addEventListener('mousedown', (e) => {
+                isDrawing = true;
+                const { offsetX, offsetY } = e;
+                
+                // Create a new path element for each new drawing stroke
+                path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('fill', 'none');
+                path.setAttribute('stroke', 'blue');
+                path.setAttribute('stroke-width', '2');
+                path.setAttribute('d', `M${offsetX} ${offsetY}`);
+                canvas.appendChild(path);
+            });
+
+            canvas.addEventListener('mousemove', (e) => {
+                if (!isDrawing) return;
+                const { offsetX, offsetY } = e;
+                
+                // Append current coordinates to the path's 'd' attribute
+                const d = path.getAttribute('d');
+                path.setAttribute('d', `${d} L${offsetX} ${offsetY}`);
+            });
+
+            canvas.addEventListener('mouseup', () => {
+                isDrawing = false;
+            });
+
+            // Handle mouse leaving the canvas to prevent unwanted drawing
+            canvas.addEventListener('mouseleave', () => {
+                isDrawing = false;
+            });
+        });
+    </script>
+</body>
+</html>
